@@ -10,7 +10,7 @@ pub struct Queue<T> {
 impl <T: fmt::Debug> Queue<T>{
     pub fn new(capacity: usize) -> Queue<T>{
         let data: Vec<T> = Vec::with_capacity(capacity);
-        Queue{capacity, size:(0), start:(0), data}
+        Queue{capacity, size: 0, start: 0, data}
     }
 
     pub fn add(&mut self, data: T){
@@ -19,7 +19,7 @@ impl <T: fmt::Debug> Queue<T>{
         }
         else if self.data.len() < self.capacity{
             println!("Adding new element {:?} was added", data);
-            &self.data.push(data);
+            self.data.push(data);
             self.size += 1;
         }
         else{
