@@ -50,6 +50,27 @@ impl<T: fmt::Debug> List<T>{
         }
     }
 
+    pub fn pop(&mut self){
+        if self.size > 0{
+            println!("Removing last element with value {:?}", self.tail.as_ref().unwrap().borrow().data);
+            if self.size == 1{
+                self.tail = None;
+                self.head = None;
+            }
+            else if self.size > 1{
+                let tmp = {
+                    Some(Rc::clone(self.tail.as_ref().unwrap().borrow().prev.as_ref().unwrap()))
+                };
+                self.tail = tmp.clone();
+                self.tail.as_mut().unwrap().borrow_mut().next = None;
+            }
+            self.size -= 1;
+        }
+        else{
+            println!("The list is empty, nothing to delete");
+        }
+    }
+
     pub fn print(&self){
         println!("Printing from first element");
         let mut current_node = self.head.clone();
